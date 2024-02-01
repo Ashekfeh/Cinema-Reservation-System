@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+
+
+    <script src="https://kit.fontawesome.com/e9f97b6d97.js" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+
+
+  <header>
+    <div class="wrapper navi">
+      <nav>
+        <div class="nav-left">
+          <div class="logo">DIGITAL WATCH</div>
+          <a href="index.html">HOME</a>
+          <a href="contact-us.html">CONTACT US</a>
+        </div>
+        <div class="nav-right">
+          <a class="login" href="login.html">log in</a>
+          <a class="signup" href="signup.html">sign up</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <div id="homepage">
+    <div class="wrapper">
+      <div class="hero-section">
+        <div id="swiper" class="swiper"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+
+
+    <div class="wrapper">
+      <div class="in-theaters">
+        <h1>IN THEATERS</h1>
+        <div class="it" id="itSection"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="wrapper">
+    <footer>
+      <div class="icons">
+        <div class="facebook"><i class="fa-brands fa-square-facebook"></i></div>
+        <div class="twitter"><i class="fa-brands fa-square-twitter"></i></div>
+        <div class="instagram"><i class="fa-brands fa-instagram"></i></div>
+      </div>
+      <div class="copyrights">
+        DIGITAL WATCH AND DIGITAL WATCH EXPERIENCE ARE TRADEMARKS FOR DIGIAL WATCH CORPORATIONS<br></br><br>
+        NEVER GONNA GIVE YOU UP</br>
+      </div>
+    </footer>
+  </div>
+
+
+  
+
+  <script>
+
+
+    const mySwiper = document.getElementById("swiper");
+    const itSection = document.getElementById("itSection")
+
+    mySwiper.classList.add('swiper', 'mySwiper');
+
+    const swiperWrapper = document.createElement("div");
+    swiperWrapper.classList.add('swiper-wrapper');
+
+
+    movies.forEach(movie => {
+
+      const swiperSlide = document.createElement("div");
+      swiperSlide.classList.add('swiper-slide');
+
+
+      const card = document.createElement("div");
+      card.classList.add("card");
+
+      const image = document.createElement("img");
+      image.src = movie.imageUrl;
+      image.classList.add('poster');
+      card.appendChild(image);
+
+      const cardBody = document.createElement("div");
+      cardBody.classList.add('card-body')
+
+      const date = document.createElement("p");
+      date.textContent = movie.releaseYear;
+      cardBody.appendChild(date);
+      date.classList.add('release-date', 'roboto');
+
+      const movieTitle = document.createElement("h1");
+      movieTitle.textContent = movie.title;
+      cardBody.appendChild(movieTitle);
+      movieTitle.classList.add('movie-title', 'roboto');
+
+      const dashes = document.createElement("p");
+      dashes.textContent = "- - - -";
+      cardBody.appendChild(dashes)
+
+      const button = document.createElement("a");
+      if (movie.inTheater == true) {
+        button.href = `movie-test.html?id=${movie.id}`
+        button.textContent = "watch now";
+        button.classList.add('watch-now', 'roboto', 'btn');
+        button.setAttribute('data-id', movie.id);
+      }
+      else {
+        button.textContent = "coming soon";
+        button.classList.add('coming-soon', 'roboto');
+      }
+
+      cardBody.appendChild(button);
+
+
+      card.appendChild(cardBody);
+
+
+      swiperSlide.appendChild(card);
+      swiperWrapper.appendChild(swiperSlide);
+      mySwiper.appendChild(swiperWrapper);
+
+      if (movie.inTheater == true) {
+        const itCard = document.createElement("div");
+        itCard.classList.add('it-card')
+        const itCardBody = document.createElement("div");
+        itCardBody.classList.add('it-card-body');
+        const itImage = document.createElement("img");
+        itImage.src = movie.imageUrl;
+        itCard.appendChild(itImage);
+
+        const itMovieTitle = document.createElement("h3");
+        itMovieTitle.textContent = movie.title;
+
+        itCardBody.appendChild(itMovieTitle);
+
+        const synopsis = document.createElement("p");
+        synopsis.textContent = movie.details.synopsis;
+        synopsis.classList.add('synopsis');
+        itCardBody.appendChild(synopsis);
+
+        const itButton = document.createElement("a");
+        itButton.href = `movie-test.html?id=${movie.id}`
+        itButton.textContent = "watch now";
+        itButton.classList.add('it-watch-now', 'btn');
+        itButton.setAttribute('data-id', movie.id)
+        itCardBody.appendChild(itButton);
+
+
+        itCard.appendChild(itCardBody);
+        itSection.appendChild(itCard);
+      }
+
+
+    });
+
+
+    var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    breakpoints: {
+        "@0.00": {
+            slidesPerView: 1,
+            spaceBetween: 0,
+        },
+        "@0.75": {
+            slidesPerView: 2,
+            spaceBetween: 0,
+        },
+        "@1.00": {
+            slidesPerView: 3,
+            spaceBetween: 0,
+        },
+        "@1.50": {
+            slidesPerView: 4,
+            spaceBetween: 0,
+        },
+    },
+});
+  </script>
+
+
+
+</body>
+
+</html>
